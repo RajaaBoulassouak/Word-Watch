@@ -1,8 +1,9 @@
 var wordInput = document.querySelector('.input-field')
-
+var breakDownButton = document.querySelector('.break-down-btn')
 
 function addWord () {
   var word = wordInput.value
+  debugger
   var addWordRequest = new XMLHttpRequest();
   addWordRequest.open('POST', 'https://wordwatch-api.herokuapp.com/api/v1/words');
   addWordRequest.setRequestHeader('Content-Type', 'application/json');
@@ -11,7 +12,8 @@ function addWord () {
       alert(`${word} added`);
     };
   };
-  var wordObject = {"word": { "value": "sample" }};
-  var wordString = JSON.stringify(wordObject);
-  addWordRequest.send(jsonString)
+  var wordObject = { "word": { "value": `${word}` }};
+  addWordRequest.send(wordObject)
 }
+
+breakDownButton.addEventListener('click', addWord);

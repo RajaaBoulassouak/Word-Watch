@@ -24,18 +24,21 @@ function topWords(key, count) {
 };
 
 function addWord () {
-  var word = wordInput.value
-  var addWordRequest = new XMLHttpRequest();
-  addWordRequest.open('POST', 'https://wordwatch-api.herokuapp.com/api/v1/words');
-  addWordRequest.setRequestHeader('Content-Type', 'application/json');
-  addWordRequest.onreadystatechange = function() {
-    if (this.readyState === XMLHttpRequest.DONE && this.status === 201) {
-      alert(`${word} added`);
+  var input = wordInput.value
+  var words = input.split(" ");
+  words.forEach((word) => {
+    var addWordRequest = new XMLHttpRequest();
+    addWordRequest.open('POST', 'https://wordwatch-api.herokuapp.com/api/v1/words');
+    addWordRequest.setRequestHeader('Content-Type', 'application/json');
+    addWordRequest.onreadystatechange = function() {
+      if (this.readyState === XMLHttpRequest.DONE && this.status === 201) {
+        alert(`${word} added`);
+      };
     };
-  };
-  var wordObject = { word: { value: word }};
-  var jsonString = JSON.stringify(wordObject);
-  addWordRequest.send(jsonString)
+    var wordObject = { word: { value: word }};
+    var jsonString = JSON.stringify(wordObject);
+    addWordRequest.send(jsonString)
+  })
 }
 
 window.addEventListener('load', getWord);

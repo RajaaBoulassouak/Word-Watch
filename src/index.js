@@ -1,5 +1,6 @@
 var wordInput = document.querySelector('.input-field')
 var breakDownButton = document.querySelector('.break-down-btn')
+var wordResult = document.querySelector('.word')
 
 function getWord () {
   var getWordRequest = new XMLHttpRequest();
@@ -7,9 +8,19 @@ function getWord () {
   getWordRequest.setRequestHeader('Content-Type', 'application/json');
   getWordRequest.onload = function() {
     var response = JSON.parse(getWordRequest.responseText);
-    console.log(response['word']);
+    var responseObj = response['word']
+    var key = Object.keys(responseObj)
+    var count = Object.values(responseObj)
+    topWords(key, count)
   };
   getWordRequest.send();
+};
+
+function topWords(key, count) {
+  var topWord = `<p class='top-word-1'> ${key}</p>
+                 <p class='word-count-1'> ${count}</p>`
+        
+  wordResult.innerHTML = topWord
 };
 
 function addWord () {

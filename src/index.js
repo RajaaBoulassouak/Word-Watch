@@ -33,8 +33,9 @@ function addWord () {
       alert(`${word} added`);
     };
   };
-  var wordObject = { "word": { "value": `${word}` }};
-  addWordRequest.send(wordObject)
+  var wordObject = { word: { value: word }};
+  var jsonString = JSON.stringify(wordObject);
+  addWordRequest.send(jsonString)
 }
 
 window.addEventListener('load', getWord);
